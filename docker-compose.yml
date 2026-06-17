@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      # Mount dataset file from root workspace
+      - ./enose_dataset_to_predict_human_disease.csv:/app/enose_dataset_to_predict_human_disease.csv
+      # Mount artifacts directory to persist models/plots
+      - ./backend/app/artifacts:/app/app/artifacts
+      # Mount backend app code for hot-reloading
+      - ./backend/app:/app/app
+      # Mount MLflow directory using a named volume to support SQLite locks under Windows/WSL2
+      - mlflow-data:/app/mlflow
+      - ./backend/mlruns:/app/mlruns
+    environment:
+      - PORT=8000
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    environment:
+      - VITE_API_URL=http://localhost:8000
+
+volumes:
+  mlflow-data:

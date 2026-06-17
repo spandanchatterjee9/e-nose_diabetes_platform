@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/
+.env
+
+# Models
+*.pkl
+*.joblib
+
+# MLflow
+mlruns/
+mlflow.db
+
+# Node
+node_modules/
+
+# React Build
+dist/
+build/
+
+# VS Code
+.vscode/
+
+# Logs
+*.log
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Reports
+reports/*.pdf
+reports/*.png
+reports/*.jpg

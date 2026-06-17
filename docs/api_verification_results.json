@@ -1,0 +1,469 @@
+[
+  {
+    "name": "1. API Health Check",
+    "status_code": 200,
+    "request": "GET /",
+    "payload": null,
+    "response": {
+      "status": "healthy",
+      "service": "E-Nose Diabetes Detection AI Healthcare Platform API",
+      "description": "Electronic Nose (E-Nose) Sensor Data Processing, Prediction, and Diagnostics"
+    }
+  },
+  {
+    "name": "2. Dataset Stats",
+    "status_code": 200,
+    "request": "GET /api/dataset/stats",
+    "payload": null,
+    "response": {
+      "total_samples": 1000,
+      "class_distribution": [
+        {
+          "name": "Diabetes",
+          "value": 545
+        },
+        {
+          "name": "Normal",
+          "value": 455
+        }
+      ],
+      "feature_stats": [
+        {
+          "feature": "TGS2600",
+          "mean": 23.95527443581537,
+          "std": 8.94523627043457,
+          "min": 7.0615268781551865,
+          "max": 41.98062191695767,
+          "median": 23.621608677201852
+        },
+        {
+          "feature": "TGS2602",
+          "mean": 53.4576664917147,
+          "std": 20.13026064707647,
+          "min": 2.080206604061545,
+          "max": 101.56488564435742,
+          "median": 57.177512094972855
+        },
+        {
+          "feature": "TGS2610",
+          "mean": 23.136623372324845,
+          "std": 12.362574273452672,
+          "min": 2.8450732835314003,
+          "max": 51.24800209026724,
+          "median": 23.141208464089186
+        },
+        {
+          "feature": "TGS2611",
+          "mean": 11.49110918127578,
+          "std": 5.1751475393035635,
+          "min": 2.038111202662302,
+          "max": 19.792725528310086,
+          "median": 13.105115720838302
+        },
+        {
+          "feature": "TGS2620",
+          "mean": 28.0001146211626,
+          "std": 10.226095606041914,
+          "min": 9.482927361964537,
+          "max": 49.29685880299079,
+          "median": 25.80392799944896
+        },
+        {
+          "feature": "TGS826",
+          "mean": 27.389318500684432,
+          "std": 10.889951982495768,
+          "min": 0.0099034940753708,
+          "max": 45.98736544506113,
+          "median": 30.01337285017494
+        }
+      ],
+      "correlation_matrix": [
+        [
+          1.0,
+          0.616,
+          0.789,
+          0.853,
+          0.951,
+          0.663
+        ],
+        [
+          0.616,
+          1.0,
+          0.665,
+          0.509,
+          0.456,
+          0.966
+        ],
+        [
+          0.789,
+          0.665,
+          1.0,
+          0.913,
+          0.659,
+          0.62
+        ],
+        [
+          0.853,
+          0.509,
+          0.913,
+          1.0,
+          0.733,
+          0.484
+        ],
+        [
+          0.951,
+          0.456,
+          0.659,
+          0.733,
+          1.0,
+          0.53
+        ],
+        [
+          0.663,
+          0.966,
+          0.62,
+          0.484,
+          0.53,
+          1.0
+        ]
+      ],
+      "features": [
+        "TGS2600",
+        "TGS2602",
+        "TGS2610",
+        "TGS2611",
+        "TGS2620",
+        "TGS826"
+      ]
+    }
+  },
+  {
+    "name": "3. Model Training & Tuning",
+    "status_code": 200,
+    "request": "POST /api/model/train",
+    "payload": {
+      "model_name": "random_forest",
+      "run_tuning": true,
+      "n_trials": 2
+    },
+    "response": {
+      "run_id": "90efa6e0b84e4c7b94f36ed3ace4c40a",
+      "best_params": {
+        "n_estimators": 216,
+        "max_depth": 3,
+        "min_samples_split": 4,
+        "min_samples_leaf": 2
+      },
+      "metrics": {
+        "accuracy": 1.0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0,
+        "roc_auc": 1.0
+      },
+      "plots": {
+        "confusion_matrix": "<Base64 image, size: 38584 chars>",
+        "roc_curve": "<Base64 image, size: 56628 chars>",
+        "pr_curve": "<Base64 image, size: 35752 chars>",
+        "feature_importance": "<Base64 image, size: 46820 chars>",
+        "shap_summary": "<Base64 image, size: 123792 chars>"
+      },
+      "shap_importance": [
+        {
+          "feature": "TGS2610",
+          "importance": 0.21358494396018243
+        },
+        {
+          "feature": "TGS2611",
+          "importance": 0.18163842772180128
+        },
+        {
+          "feature": "TGS2600",
+          "importance": 0.057891021376914306
+        },
+        {
+          "feature": "TGS2602",
+          "importance": 0.02615674353375062
+        },
+        {
+          "feature": "TGS2620",
+          "importance": 0.023607371527818465
+        },
+        {
+          "feature": "TGS826",
+          "importance": 0.023077042219278435
+        }
+      ],
+      "trial_history": [
+        {
+          "trial": 0,
+          "value": 0.997701073492981,
+          "params": {
+            "n_estimators": 158,
+            "max_depth": 13,
+            "min_samples_split": 12,
+            "min_samples_leaf": 8,
+            "random_state": 42
+          }
+        },
+        {
+          "trial": 1,
+          "value": 0.9988439306358382,
+          "params": {
+            "n_estimators": 216,
+            "max_depth": 3,
+            "min_samples_split": 4,
+            "min_samples_leaf": 2,
+            "random_state": 42
+          }
+        }
+      ]
+    }
+  },
+  {
+    "name": "4. Raw Predict & SHAP waterfall",
+    "status_code": 200,
+    "request": "POST /api/predict",
+    "payload": {
+      "TGS2600": 23.65,
+      "TGS2602": 58.33,
+      "TGS2610": 15.02,
+      "TGS2611": 10.16,
+      "TGS2620": 24.5,
+      "TGS826": 30.04
+    },
+    "response": {
+      "prediction": "Diabetes",
+      "class_index": 1,
+      "confidence": 0.9928884476343682,
+      "expected_value": 0.5436226851851851,
+      "contributions": [
+        {
+          "feature": "TGS2600",
+          "raw_value": 23.65,
+          "shap_value": -0.027993264138594102,
+          "direction": "Normal Contribution"
+        },
+        {
+          "feature": "TGS2602",
+          "raw_value": 58.33,
+          "shap_value": 0.03793071353736872,
+          "direction": "Diabetic Contribution"
+        },
+        {
+          "feature": "TGS2610",
+          "raw_value": 15.02,
+          "shap_value": 0.2326772472470937,
+          "direction": "Diabetic Contribution"
+        },
+        {
+          "feature": "TGS2611",
+          "raw_value": 10.16,
+          "shap_value": 0.19729682873615015,
+          "direction": "Diabetic Contribution"
+        },
+        {
+          "feature": "TGS2620",
+          "raw_value": 24.5,
+          "shap_value": -0.012855918811825304,
+          "direction": "Normal Contribution"
+        },
+        {
+          "feature": "TGS826",
+          "raw_value": 30.04,
+          "shap_value": 0.022210155878989564,
+          "direction": "Diabetic Contribution"
+        }
+      ],
+      "waterfall_plot": "<Base64 image, size: 73916 chars>"
+    }
+  },
+  {
+    "name": "5. Clinical Patient Assessment",
+    "status_code": 500,
+    "request": "POST /api/assessment",
+    "payload": {
+      "patient_info": {
+        "patient_id": "PT-TEST-2026",
+        "name": "Jane Doe",
+        "age": 45,
+        "gender": "Female",
+        "height": 1.65,
+        "weight": 72.0
+      },
+      "sensor_data": {
+        "TGS2600": 23.65,
+        "TGS2602": 58.33,
+        "TGS2610": 15.02,
+        "TGS2611": 10.16,
+        "TGS2620": 24.5,
+        "TGS826": 30.04
+      }
+    },
+    "response": {
+      "detail": "name 'np' is not defined"
+    }
+  },
+  {
+    "name": "6. Patient Assessments Logs",
+    "status_code": 200,
+    "request": "GET /api/assessments",
+    "payload": null,
+    "response": []
+  },
+  {
+    "name": "7. MLflow Historical Runs",
+    "status_code": 200,
+    "request": "GET /api/model/experiments",
+    "payload": null,
+    "response": [
+      {
+        "run_id": "90efa6e0b84e4c7b94f36ed3ace4c40a",
+        "status": "FINISHED",
+        "start_time": "2026-06-17T11:50:07.968000",
+        "parameters": {
+          "random_state": "42",
+          "n_estimators": "216",
+          "n_jobs": "-1",
+          "max_depth": "3",
+          "min_samples_split": "4",
+          "min_samples_leaf": "2",
+          "model_type": "random_forest"
+        },
+        "metrics": {
+          "accuracy": 1.0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1_score": 1.0,
+          "roc_auc": 1.0
+        }
+      },
+      {
+        "run_id": "e4cba6fcc422467f837c12433fce7647",
+        "status": "FINISHED",
+        "start_time": "2026-06-17T11:44:48.999000",
+        "parameters": {
+          "random_state": "42",
+          "n_estimators": "177",
+          "n_jobs": "-1",
+          "max_depth": "19",
+          "min_samples_split": "15",
+          "min_samples_leaf": "1",
+          "model_type": "random_forest"
+        },
+        "metrics": {
+          "accuracy": 1.0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1_score": 1.0,
+          "roc_auc": 1.0
+        }
+      },
+      {
+        "run_id": "f230bac3cf8e43ba9ad2fb41643e1408",
+        "status": "FINISHED",
+        "start_time": "2026-06-17T10:39:59.886000",
+        "parameters": {
+          "n_estimators": "151",
+          "max_depth": "22",
+          "min_samples_split": "16",
+          "min_samples_leaf": "2",
+          "random_state": "42",
+          "n_jobs": "-1",
+          "model_type": "Random Forest"
+        },
+        "metrics": {
+          "accuracy": 1.0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1_score": 1.0,
+          "roc_auc": 1.0
+        }
+      },
+      {
+        "run_id": "ce013ca79b27413ea40b9d734ffd9c14",
+        "status": "FINISHED",
+        "start_time": "2026-06-17T10:38:45.618000",
+        "parameters": {
+          "n_estimators": "122",
+          "max_depth": "22",
+          "min_samples_split": "14",
+          "min_samples_leaf": "1",
+          "random_state": "42",
+          "n_jobs": "-1",
+          "model_type": "Random Forest"
+        },
+        "metrics": {
+          "accuracy": 1.0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1_score": 1.0,
+          "roc_auc": 1.0
+        }
+      },
+      {
+        "run_id": "cb20775ec22c4d17a11e585cc3a005fd",
+        "status": "FINISHED",
+        "start_time": "2026-06-17T10:33:25.094000",
+        "parameters": {
+          "n_estimators": "135",
+          "max_depth": "25",
+          "min_samples_split": "9",
+          "min_samples_leaf": "1",
+          "random_state": "42",
+          "n_jobs": "-1",
+          "model_type": "Random Forest"
+        },
+        "metrics": {
+          "accuracy": 1.0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1_score": 1.0,
+          "roc_auc": 0.9999999999999999
+        }
+      },
+      {
+        "run_id": "7e1046ba6a654d39b7f20d882bdd1783",
+        "status": "FINISHED",
+        "start_time": "2026-06-17T10:30:11.324000",
+        "parameters": {
+          "n_estimators": "150",
+          "max_depth": "14",
+          "min_samples_split": "12",
+          "min_samples_leaf": "4",
+          "random_state": "42",
+          "n_jobs": "-1",
+          "model_type": "Random Forest"
+        },
+        "metrics": {
+          "accuracy": 1.0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1_score": 1.0,
+          "roc_auc": 1.0
+        }
+      },
+      {
+        "run_id": "d3db9241a0cb4cc7bf8a6b2a7cbb8c7e",
+        "status": "FINISHED",
+        "start_time": "2026-06-17T10:17:48.887000",
+        "parameters": {
+          "n_estimators": "299",
+          "max_depth": "23",
+          "min_samples_split": "19",
+          "min_samples_leaf": "5",
+          "random_state": "42",
+          "n_jobs": "-1",
+          "model_type": "Random Forest"
+        },
+        "metrics": {
+          "accuracy": 1.0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1_score": 1.0,
+          "roc_auc": 1.0
+        }
+      }
+    ]
+  }
+]
