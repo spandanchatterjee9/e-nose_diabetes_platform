@@ -147,12 +147,12 @@
       "n_trials": 2
     },
     "response": {
-      "run_id": "90efa6e0b84e4c7b94f36ed3ace4c40a",
+      "run_id": "760a74aa5988400bbdc883ee3130fbb9",
       "best_params": {
-        "n_estimators": 216,
-        "max_depth": 3,
-        "min_samples_split": 4,
-        "min_samples_leaf": 2
+        "n_estimators": 198,
+        "max_depth": 21,
+        "min_samples_split": 13,
+        "min_samples_leaf": 4
       },
       "metrics": {
         "accuracy": 1.0,
@@ -165,55 +165,55 @@
         "confusion_matrix": "<Base64 image, size: 38584 chars>",
         "roc_curve": "<Base64 image, size: 56628 chars>",
         "pr_curve": "<Base64 image, size: 35752 chars>",
-        "feature_importance": "<Base64 image, size: 46820 chars>",
-        "shap_summary": "<Base64 image, size: 123792 chars>"
+        "feature_importance": "<Base64 image, size: 46792 chars>",
+        "shap_summary": "<Base64 image, size: 123316 chars>"
       },
       "shap_importance": [
         {
           "feature": "TGS2610",
-          "importance": 0.21358494396018243
+          "importance": 0.2167839638252568
         },
         {
           "feature": "TGS2611",
-          "importance": 0.18163842772180128
+          "importance": 0.1853270399655075
         },
         {
           "feature": "TGS2600",
-          "importance": 0.057891021376914306
+          "importance": 0.05656318278193548
         },
         {
           "feature": "TGS2602",
-          "importance": 0.02615674353375062
+          "importance": 0.02564958941674058
         },
         {
           "feature": "TGS2620",
-          "importance": 0.023607371527818465
+          "importance": 0.024559991379099633
         },
         {
           "feature": "TGS826",
-          "importance": 0.023077042219278435
+          "importance": 0.020243695372084463
         }
       ],
       "trial_history": [
         {
           "trial": 0,
-          "value": 0.997701073492981,
+          "value": 0.9988439306358382,
           "params": {
-            "n_estimators": 158,
-            "max_depth": 13,
-            "min_samples_split": 12,
-            "min_samples_leaf": 8,
+            "n_estimators": 198,
+            "max_depth": 21,
+            "min_samples_split": 13,
+            "min_samples_leaf": 4,
             "random_state": 42
           }
         },
         {
           "trial": 1,
-          "value": 0.9988439306358382,
+          "value": 0.9965712033631109,
           "params": {
-            "n_estimators": 216,
-            "max_depth": 3,
-            "min_samples_split": 4,
-            "min_samples_leaf": 2,
+            "n_estimators": 226,
+            "max_depth": 23,
+            "min_samples_split": 3,
+            "min_samples_leaf": 7,
             "random_state": 42
           }
         }
@@ -235,52 +235,52 @@
     "response": {
       "prediction": "Diabetes",
       "class_index": 1,
-      "confidence": 0.9928884476343682,
-      "expected_value": 0.5436226851851851,
+      "confidence": 1.0,
+      "expected_value": 0.5432575757575757,
       "contributions": [
         {
           "feature": "TGS2600",
           "raw_value": 23.65,
-          "shap_value": -0.027993264138594102,
+          "shap_value": -0.027096148907480404,
           "direction": "Normal Contribution"
         },
         {
           "feature": "TGS2602",
           "raw_value": 58.33,
-          "shap_value": 0.03793071353736872,
+          "shap_value": 0.03709750493833845,
           "direction": "Diabetic Contribution"
         },
         {
           "feature": "TGS2610",
           "raw_value": 15.02,
-          "shap_value": 0.2326772472470937,
+          "shap_value": 0.2375994609728842,
           "direction": "Diabetic Contribution"
         },
         {
           "feature": "TGS2611",
           "raw_value": 10.16,
-          "shap_value": 0.19729682873615015,
+          "shap_value": 0.20390827538610357,
           "direction": "Diabetic Contribution"
         },
         {
           "feature": "TGS2620",
           "raw_value": 24.5,
-          "shap_value": -0.012855918811825304,
+          "shap_value": -0.01290283190278308,
           "direction": "Normal Contribution"
         },
         {
           "feature": "TGS826",
           "raw_value": 30.04,
-          "shap_value": 0.022210155878989564,
+          "shap_value": 0.018136163755361687,
           "direction": "Diabetic Contribution"
         }
       ],
-      "waterfall_plot": "<Base64 image, size: 73916 chars>"
+      "waterfall_plot": "<Base64 image, size: 74260 chars>"
     }
   },
   {
     "name": "5. Clinical Patient Assessment",
-    "status_code": 500,
+    "status_code": 200,
     "request": "POST /api/assessment",
     "payload": {
       "patient_info": {
@@ -301,7 +301,31 @@
       }
     },
     "response": {
-      "detail": "name 'np' is not defined"
+      "assessment_id": "AST-9687F2C0",
+      "patient_info": {
+        "patient_id": "PT-TEST-2026",
+        "name": "Jane Doe",
+        "age": 45,
+        "gender": "Female",
+        "height": 1.65,
+        "weight": 72.0
+      },
+      "bmi": 26.44628099173554,
+      "sensor_data": {
+        "TGS2600": 23.65,
+        "TGS2602": 58.33,
+        "TGS2610": 15.02,
+        "TGS2611": 10.16,
+        "TGS2620": 24.5,
+        "TGS826": 30.04
+      },
+      "prediction": "Diabetes",
+      "confidence": 1.0,
+      "risk_percentage": 100.0,
+      "risk_category": "High",
+      "clinical_recommendation": "Highly recommended to undergo a clinical Fasting Blood Sugar (FBS) test and HbA1c screening. Consult an endocrinologist immediately. Strong traces of glycemic markers detected in breath.",
+      "timestamp": "2026-06-17T14:59:18.279113",
+      "model_version": "RandomForestClassifier Classifier (v1.0)"
     }
   },
   {
@@ -309,7 +333,35 @@
     "status_code": 200,
     "request": "GET /api/assessments",
     "payload": null,
-    "response": []
+    "response": [
+      {
+        "assessment_id": "AST-9687F2C0",
+        "patient_info": {
+          "patient_id": "PT-TEST-2026",
+          "name": "Jane Doe",
+          "age": 45,
+          "gender": "Female",
+          "height": 1.65,
+          "weight": 72.0
+        },
+        "bmi": 26.44628099173554,
+        "sensor_data": {
+          "TGS2600": 23.65,
+          "TGS2602": 58.33,
+          "TGS2610": 15.02,
+          "TGS2611": 10.16,
+          "TGS2620": 24.5,
+          "TGS826": 30.04
+        },
+        "prediction": "Diabetes",
+        "confidence": 1.0,
+        "risk_percentage": 100.0,
+        "risk_category": "High",
+        "clinical_recommendation": "Highly recommended to undergo a clinical Fasting Blood Sugar (FBS) test and HbA1c screening. Consult an endocrinologist immediately. Strong traces of glycemic markers detected in breath.",
+        "timestamp": "2026-06-17T14:59:18.279113",
+        "model_version": "RandomForestClassifier Classifier (v1.0)"
+      }
+    ]
   },
   {
     "name": "7. MLflow Historical Runs",
@@ -317,6 +369,69 @@
     "request": "GET /api/model/experiments",
     "payload": null,
     "response": [
+      {
+        "run_id": "760a74aa5988400bbdc883ee3130fbb9",
+        "status": "FINISHED",
+        "start_time": "2026-06-17T14:59:16.392000",
+        "parameters": {
+          "random_state": "42",
+          "n_estimators": "198",
+          "n_jobs": "-1",
+          "max_depth": "21",
+          "min_samples_split": "13",
+          "min_samples_leaf": "4",
+          "model_type": "random_forest"
+        },
+        "metrics": {
+          "accuracy": 1.0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1_score": 1.0,
+          "roc_auc": 1.0
+        }
+      },
+      {
+        "run_id": "db81073baa624e51b5dcb72228ad298c",
+        "status": "FINISHED",
+        "start_time": "2026-06-17T14:58:16.130000",
+        "parameters": {
+          "random_state": "42",
+          "n_estimators": "144",
+          "n_jobs": "-1",
+          "max_depth": "16",
+          "min_samples_split": "5",
+          "min_samples_leaf": "2",
+          "model_type": "random_forest"
+        },
+        "metrics": {
+          "accuracy": 1.0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1_score": 1.0,
+          "roc_auc": 1.0
+        }
+      },
+      {
+        "run_id": "0e19cc5a655145cf952ed9bb8c800b1a",
+        "status": "FINISHED",
+        "start_time": "2026-06-17T14:19:55.352000",
+        "parameters": {
+          "random_state": "42",
+          "n_estimators": "104",
+          "n_jobs": "-1",
+          "max_depth": "5",
+          "min_samples_split": "9",
+          "min_samples_leaf": "4",
+          "model_type": "random_forest"
+        },
+        "metrics": {
+          "accuracy": 1.0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1_score": 1.0,
+          "roc_auc": 1.0
+        }
+      },
       {
         "run_id": "90efa6e0b84e4c7b94f36ed3ace4c40a",
         "status": "FINISHED",
@@ -465,5 +580,12 @@
         }
       }
     ]
+  },
+  {
+    "name": "8. Download Clinical PDF Report",
+    "status_code": 200,
+    "request": "GET /api/assessment/report/AST-9687F2C0",
+    "payload": null,
+    "response": "<Binary PDF stream, size: 4131 bytes>"
   }
 ]

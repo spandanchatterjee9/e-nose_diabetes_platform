@@ -3,6 +3,7 @@ import uuid
 import sqlite3
 import json
 import pickle
+import numpy as np
 from datetime import datetime
 from app.models.schemas import PatientAssessmentRequest
 from app.services.explain_service import ExplainService

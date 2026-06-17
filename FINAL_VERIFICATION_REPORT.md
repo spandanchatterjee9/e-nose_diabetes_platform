@@ -37,10 +37,10 @@ Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
 | `/api/dataset/stats` | **GET** | `200` | None | Dataset stats (1000 rows, class ratios: Diabetes 54.5%, Normal 45.5%) |
 | `/api/model/train` | **POST** | `200` | `{"model_name": "random_forest", "run_tuning": true, "n_trials": 2}` | F1 metrics (100%), best parameters, trial logs, and base64 plots. |
 | `/api/predict` | **POST** | `200` | `{"TGS2600": 23.65, "TGS2602": 58.33, ...}` | Prediction: `"Diabetes"`, confidence 100%, and SHAP waterfall chart. |
-| `/api/assessment` | **POST** | `500` | `{"patient_info": {...}, "sensor_data": {...}}` | `{"detail": "name 'np' is not defined"}` (**CRITICAL BUG**) |
-| `/api/assessments` | **GET** | `200` | None | `[]` (empty list because assessment submission failed above) |
-| `/api/model/experiments` | **GET** | `200` | None | Historical runs list fetched from local SQLite database (7 runs total) |
-| `/api/assessment/report/{id}` | **GET** | `500` | None | Fails with 500 because no assessment records could be inserted in the DB. |
+| `/api/assessment` | **POST** | `200` | `{"patient_info": {...}, "sensor_data": {...}}` | Saves assessment record, returns diagnosis, confidence, and BMI. (✔ **FIXED**) |
+| `/api/assessments` | **GET** | `200` | None | Lists historical patient assessments successfully. (✔ **FIXED**) |
+| `/api/model/experiments` | **GET** | `200` | None | Historical runs list fetched from local SQLite database (10 runs total) |
+| `/api/assessment/report/{id}` | **GET** | `200` | None | Generates and compiles patient clinical report PDF stream. (✔ **FIXED**) |
 
 > [!NOTE]
 > The route specified in the verification instruction was `GET /api/report/{id}`, whereas the route registered in the codebase is `GET /api/assessment/report/{assessment_id}`. This route mismatch has been documented as a minor path registration inconsistency.
@@ -72,19 +72,21 @@ Trained and evaluated all 5 classifiers using Stratified 80/20 train/test splits
 Interactive browser testing verified the workspace layouts and sub-tab navigations.
 
 - [x] **Dashboard**: Renders correctly (0 screens, model specs, link online).
-- [x] **Patient Assessment Form**: Renders sliders and auto-calculates BMI. Submitting the form with breath presets correctly triggers a network call, which displays the backend's `500 np is not defined` error.
+- [x] **Patient Assessment Form**: Renders sliders and auto-calculates BMI. Submitting the form with breath presets correctly triggers a network call, returns prediction outcomes, and overlays recommendations. (✔ **FIXED**)
 - [x] **Research Mode sub-tabs**: The Dataset Profile, Model Training, Global SHAP, MLflow Run Logs, and Benchmarks all render successfully without Javascript errors.
-- [x] **PDF Compilations**: Programmatic PDFs (`reports/data_audit.pdf` and `reports/model_comparison.pdf`) compile successfully on the host. However, the diagnostic patient report download returns a 500 error due to the missing import.
+- [x] **PDF Compilations**: Programmatic PDFs (`reports/data_audit.pdf` and `reports/model_comparison.pdf`) compile successfully on the host. The diagnostic patient report download compiles and serves a ReportLab PDF binary successfully. (✔ **FIXED**)
 
 ### UI Verification Video Recording
-Refer to the browser session recording:
-![UI Verification Video](C:/Users/spand/.gemini/antigravity-ide/brain/e807e643-cded-4748-8319-8f58e5b8c574/e2e_frontend_test_1781696706397.webp)
+Refer to the browser session recording showing the mixed risk outcomes flow:
+![UI Verification Video](C:/Users/spand/.gemini/antigravity-ide/brain/e807e643-cded-4748-8319-8f58e5b8c574/ui_mix_risk_test_1781711905507.webp)
 
 ### UI Screenshots Carousel
 ````carousel
 ![Dashboard Overview](C:/Users/spand/.gemini/antigravity-ide/brain/e807e643-cded-4748-8319-8f58e5b8c574/dashboard_page_1781696726253.png)
 <!-- slide -->
-![Patient Assessment Error](C:/Users/spand/.gemini/antigravity-ide/brain/e807e643-cded-4748-8319-8f58e5b8c574/assessment_error_1781696832978.png)
+![Jane Smith Completed Assessment](C:/Users/spand/.gemini/antigravity-ide/brain/e807e643-cded-4748-8319-8f58e5b8c574/completed_assessment_1781711265678.png)
+<!-- slide -->
+![Reports Dashboard Mixed Logs](C:/Users/spand/.gemini/antigravity-ide/brain/e807e643-cded-4748-8319-8f58e5b8c574/mixed_risk_reports_1781712021038.png)
 <!-- slide -->
 ![Research: Dataset Profile](C:/Users/spand/.gemini/antigravity-ide/brain/e807e643-cded-4748-8319-8f58e5b8c574/research_dataset_profile_1781696850211.png)
 <!-- slide -->
@@ -134,19 +136,19 @@ Check of open-source repository structures:
 - MLflow SQLite experiment logs query (`GET /api/model/experiments`).
 - ReportLab data audit (`reports/data_audit.pdf`) and model comparisons (`reports/model_comparison.pdf`).
 - React SPA navigation layout and Admin Research Mode sub-panels.
+- Patient Clinical Assessment endpoint (`POST /api/assessment`).
+- Patient PDF Clinical Report download (`GET /api/assessment/report/{id}`).
 
 ### ❌ Broken Features
-- Clinical assessment submission (`POST /api/assessment`): **Fails with 500 error** due to a missing `numpy` import in `assessment_service.py`.
-- Patient clinical PDF download (`GET /api/assessment/report/{id}`): **Fails with 500 error** since it requires matching assessment database entries.
+- None.
 
 ### ⚠ Warnings
-- **Missing Numpy Import in `assessment_service.py`**: Must add `import numpy as np` to the imports section of the file.
 - **Docker version warning**: The `version` attribute is obsolete in `docker-compose.yml` and can be removed.
 - **Vite chunk warning**: Rollup detected React assets exceeding 500 KB limit. Consider code splitting.
 
 ### 📈 Project Verification Score
 Based on the checks above (Docker health, API coverage, MVC layers, and GitHub open-source documents), the platform is scored at:
 
-# **78.5% / 100%**
+# **87.5% / 100%**
 
-*(Needs a fix for the `numpy` import in `assessment_service.py` and the creation of standard open-source documentation files to reach 100% readiness).*
+*(The platform is fully operational and correct. Creating standard open-source documentation files will bring the repository to 100% readiness).*
