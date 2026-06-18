@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # E-Nose Non-Invasive Diabetes Detection AI Research Platform
 
 A production-grade, modular, and extensible AI research platform utilizing Electronic Nose (E-Nose) metal oxide semiconductor (MOS) sensor array telemetry to classify and interpret patient diabetes risk.
